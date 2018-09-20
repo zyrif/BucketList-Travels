@@ -100,3 +100,6 @@ ENV/
 
 # fonts
 staticfiles/fonts/
+
+#django superuser details
+admin superuser.txt
