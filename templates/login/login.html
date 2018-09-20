@@ -1,0 +1,35 @@
+{% extends 'login/base.html' %}
+
+{% block title %} <title>Login</title> {% endblock %}
+
+{% block form %}
+<form class="formstyle" method="POST">
+    <div class="container">
+        <h1 style="color:#7A7A7A">Sign in</h1>
+
+        <hr>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <p style="text-align: right"><a style="color: red;" href="#">Forgot password?</a></p>
+
+        <div class="signupbtn">
+            <button class="btnstyle" type="submit" value="Sign In"> Sign In </button>
+        </div>
+
+        <p style="color:#7A7A7A">Don't have an account? <a href="{% url 'signuppage' %}" style="color:dodgerblue">SIGN
+                UP</a>.</p>
+
+    </div>
+</form>
+
+
+
+{% endblock %}
+
+
+<!-- <input class="inputfields" type="email" placeholder="Email" name="email" required>
+
+
+<input class="inputfields" type="password" placeholder="Password" name="password" required> -->

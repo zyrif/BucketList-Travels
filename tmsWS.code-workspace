@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.multiCursorModifier": "alt",
+		"git.ignoreMissingGitWarning": true,
+		"python.venvPath": "D:\\Anaconda\\envs",
+		"workbench.colorTheme": "Better Solarized Dark",
+		"editor.formatOnSave": true,
+		"python.linting.pep8Enabled": true,
+		"python.linting.pylintPath": "D:\\Anaconda\\envs\\djangoTest\\Scripts\\pylint.exe",
+		"python.linting.pylintArgs": [
+			"--load-plugins",
+			"pylint_django"
+		],
+		"editor.rulers": [
+			80,
+			120
+		],
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			".vscode": true,
+			"**/*.pyc": true
+		},}
+}

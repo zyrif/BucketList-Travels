@@ -1,0 +1,36 @@
+{% extends 'login/base.html' %}
+
+{% block title %} <title>Sign Up</title> {% endblock %}
+
+{% block form %}
+<form class="formstyle" method="POST">
+    <div class="container">
+        <h1 style="color:#7A7A7A">JOIN FOR FREE</h1>
+
+        <hr>
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="signupbtn">
+            <button class="btnstyle" type="submit" value="Sign Up"> Sign Up </button>
+        </div>
+    </div>
+    <p style="color:#7A7A7A">Already have an account? <a href="{% url 'loginpage' %}" style="color:dodgerblue">SIGN
+            IN</a>.</p>
+</form>
+
+
+{% endblock %}
+
+
+<!-- <input class="inputfields" type="text" placeholder="Name" name="name" required>
+
+<input class="inputfields" type="email" placeholder="Email" name="email" required>
+
+<input class="inputfields" type="text" placeholder="Phone Number" name="phonenumber" required>
+
+<input class="inputfields" type="password" placeholder="Password" name="password" required>
+
+<input class="inputfields" type="password" placeholder="Re-type Password" name="password" required> -->

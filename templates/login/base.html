@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block title %} <title>Base</title> {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/login.css' %}" />
+    <!-- <script src="main.js"></script> -->
+</head>
+
+<body>
+    <div class="logo_area">
+        <a href="{% url 'homepage' %}">
+            <img class="logomain" src="{% static 'images/logo_vector.png' %}" alt="BucketList Travel" />
+        </a>
+    </div>
+
+
+    {% block form %}
+
+    {% endblock %}
+
+</body>
+
+</html>

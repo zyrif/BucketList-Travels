@@ -1,0 +1,82 @@
+body{background-image:url('../images/bg.jpg');
+	background-color: #747474;}
+	img{
+		margin-top: 20px;
+		margin-left: 20px;
+		
+		
+
+	}
+	ul{
+		list-style-type: none;
+		float: right;
+		overflow: hidden;
+		margin-top: 20px;
+		padding:0px;	
+	}
+	li{
+		float:left;
+		padding: 20px;
+	}
+	li a{
+		display: block;
+		color: white;
+    	text-align: center;
+    	padding:10px;
+    	text-decoration: none;
+		font-size: 20px;
+		font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	}
+	li a:hover{
+		border-bottom: 3px solid #ccffff
+	}
+
+	.srcbar{
+		position: absolute;
+		left: 50%;
+		top:50%;
+		height: auto;
+		width: 820px;
+		transform: translate(-50%,-50%)
+	}
+	form input{
+		width: 595px;
+		border: 0px solid black;
+		border-radius: 4px;
+		font-size: 20px;
+		padding: 10px 50px 10px 50px;
+		box-shadow: 0px 0px 10px 0px #333333;
+		background-image: url(../Resource/place.png);
+		background-repeat: no-repeat;
+		background-position: 15px center;
+		background-size: 20px;
+		float: left;
+	
+	}
+	
+	form input:hover{
+		box-shadow: 0px 0px 15px 0px black;
+		
+	}
+	
+
+
+	
+	form button{
+		font-size: 20px;
+		padding: 10px 20px 10px 20px;
+		border: 0px solid black;
+		border-radius: 4px;
+		background-color: #00a26f;
+		color: white;
+		box-shadow: 0px 0px 10px 0px #333333;
+		width: 110px;
+		float: right;
+		
+		
+	}
+	
+	
+	form button:hover{
+		box-shadow: 0px 0px 15px 0px black;
+	}
