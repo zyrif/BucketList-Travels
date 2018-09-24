@@ -80,3 +80,8 @@ def signupView(request):
         userinfoform = UserInfoForm()
         return render(request, 'login/signup.html',
                       {'userform': userform, 'userinfoform': userinfoform})
+
+
+def logoutView(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('homepage'))

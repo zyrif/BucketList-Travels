@@ -19,8 +19,14 @@
             <li><a href="{% url 'homepage' %}">Home</a></li>
             <li><a href="{% url 'homepage' %}">Places</a></li>
             <li><a href="{% url 'homepage' %}">Contact</a></li>
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profilepage' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
             <li><a href="{% url 'loginpage' %}">Login</a></li>
             <li><a href="{% url 'signuppage' %}">Sign up</a></li>
+            {% endif %}
 
         </ul>
     </div>
