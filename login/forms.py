@@ -1,6 +1,6 @@
 from django import forms
-from .models import UsersModel
-
+from .models import UserInfo
+from django.contrib.auth.models import User
 # To-Do: Hash password rather than storing in plain text
 
 
@@ -11,25 +11,25 @@ class LoginForm(forms.ModelForm):
         attrs={'placeholder': 'Password'}), label='')
 
     class Meta:
-        model = UsersModel
+        model = User
         fields = ('email', 'password')
 
 
 class SignupForm(forms.ModelForm):
-    name = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Name'}))
+    first_name = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Last Name'}))
     email = forms.CharField(label='', widget=forms.TextInput(
         attrs={'placeholder': 'Email'}))
-    contactno = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Phone Number'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'placeholder': 'Password'}), label='')
     verify_password = forms.CharField(widget=forms.PasswordInput(
         attrs={'placeholder': 'Re-type Password'}), label='')
 
     class Meta:
-        model = UsersModel
-        fields = ('name', 'email', 'contactno', 'password')
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'password')
 
     def clean(self):
         cleaned_data = super(SignupForm, self).clean()
@@ -38,3 +38,12 @@ class SignupForm(forms.ModelForm):
 
         if password != verify_password:
             raise forms.ValidationError("Passwords do not match")
+
+
+class UserInfoForm(forms.ModelForm):
+    contactno = forms.CharField(label='', widget=forms.TextInput(
+        attrs={'placeholder': 'Phone Number'}))
+
+    class Meta:
+        model = UserInfo
+        fields = ('contactno',)

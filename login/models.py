@@ -1,15 +1,12 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
-class UsersModel(models.Model):
-    userid = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=64)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=64)
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     contactno = models.CharField(max_length=14, unique=True)
-    adminstatus = models.BooleanField(default=False)
+    # add ticket info, profile pic and stuff here
 
     def __str__(self):
-        return str(self.userid)
+        return self.user.username

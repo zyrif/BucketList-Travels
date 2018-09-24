@@ -11,7 +11,8 @@
 
 
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ userform.as_p }}
+        {{ userinfoform.as_p }}
 
         <div class="signupbtn">
             <button class="btnstyle" type="submit" value="Sign Up"> Sign Up </button>

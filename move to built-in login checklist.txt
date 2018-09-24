@@ -1,0 +1,7 @@
+1. Modify the models to separate contact number and others in a separate model that is in one to one relationship with 
+built in User model - done
+2. Modify the forms.py to use built in User as model for signup. Create a new form for getting contact no. 
+Since User requires name to be broken down to first_name and last_name, modify accordingly. - done
+3. Modify the template to reflect the changes of step 2 - done
+4. Write the view logic - 
+5. Include password hashers - done
