@@ -1,3 +1,0 @@
-name: rubai
-email: rubaiyat9@gmail.com
-pass: productionhell99
