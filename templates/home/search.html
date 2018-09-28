@@ -1,17 +1,150 @@
 {% extends 'home/base.html' %}
 
 
+
+{% block style %}
+<style>
+
+
+    body{
+        background: 
+            linear-gradient(
+            rgba(0, 0, 0, 0.7), 
+            rgba(0, 0, 0, 0.3)
+            ),
+            url(static/images/coxs.jpg);
+            background-attachment: fixed;
+        }
+
+    h1{
+        font-size: 36pt;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: white;
+    }
+
+    h2{
+        font-size: 24pt;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+    h3{
+        font-size: 18pt;
+        color: white;
+        text-align: justify;
+    }
+
+    #filterIns{
+        color: white;
+        margin-bottom: 20px;
+    }
+	
+    #description{
+        width: 600px;
+        height: auto;
+        margin-left: 15%;
+        float: left;
+    }
+
+    #filter{
+        box-sizing: border-box;
+        width: 550px;
+        height: auto;
+        float: right;
+        margin-right: 15%;
+        background-color:  rgba(0, 0, 0, .4);
+        padding: 0px 50px 100px;
+        
+    }
+
+
+
+
+/* EXPERIMENTAL
+
+    #filter{
+        width: 600px;
+        height: auto;
+        float: right;
+        margin-right: 15%;
+        background-color: black;
+        box-sizing: border-box;
+        padding: 25px;  
+    }
+
+    .filterfield{
+        margin-left: 50%;
+        width: 70%;
+        transform: translate(-50%);
+        margin-top: 20px;
+    }
+
+    input[type=submit]{
+        margin-left: 50%;
+        width: 100%;
+        transform: translate(-50%);
+        margin-top: 20px;
+    }
+    
+
+    */
+
+    form input.filterfield{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 50px 10px 50px;
+        margin-left: 50%;
+        transform: translate(-50%);
+        border: 0px solid black;
+        border-radius: 4px;
+        font-size: 20px;
+        box-shadow: 0px 0px 10px 0px #333333;
+        margin-top: 10px;
+        font-size: 20px;
+     
+        color: white;
+
+    }
+#searchButton{
+    background-color:#00a26f;
+    margin-top: 30px;
+}
+
+
+
+
+
+</style>
+{% endblock %}
+
+
+
+
 {% block content %}
-<h1> {{ place_name }} </h1>
+
+
+
+
 <div class="container" id="description">
-    <p> {{ place_description }} </p>
+    <h1> {{ place_name }} </h1>
+    <hr>
+  
+    <h3> {{ place_description }} </h3>
+
+
+
 </div>
 
 <div class="container" id="filter">
+    
     <form method="post">
-        {% csrf_token %}
-        {{ filter_form.as_p }}
-        <input type="submit" value="Search">
+            <h2 id="filterIns">দেখেন সিটটিট ফাঁকা আছে নাকিঃ  </h2>
+        <hr>
+            {% csrf_token %}
+            {{ filter_form.as_p }}
+        <input id="searchButton" class="filterfield" type="submit" value="Search">
     </form>
+
+
 </div>
 {% endblock content %}
