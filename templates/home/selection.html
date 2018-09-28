@@ -1,0 +1,25 @@
+{% extends 'home/base.html' %}
+
+
+{% block content %}
+<div class="grid-container">
+    {% for room in rooms %}
+    <div class="grid-item">
+        <div class="img-container">
+            <img src="/media/{{ room.image }}" alt="Image" width="360" height="240">
+        </div>
+        <p> {{ room.name }} </p>
+        <p> {{ room.host.name }}</p>
+        <p> {{ room.size }} sq-ft </p>
+        <p> {{ room.capacity }} person</p>
+        <p> {{ room.price }} per night </p>
+        <span>
+            <button> Details </button>
+            <button type="submit"> Book </button>
+        </span>
+    </div>
+    {% empty %}
+    <h3> Sorry, system couldn't find any result matching the search criteria </h3>
+    {% endfor %}
+</div>
+{% endblock content %}

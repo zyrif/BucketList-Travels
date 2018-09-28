@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, reverse
+from django.shortcuts import render, reverse, render_to_response
+from django.shortcuts import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic.edit import FormView
 from .models import Destination, Lodging, Room
 from .forms import SearchForm, FilterForm
 
@@ -9,8 +11,7 @@ from .forms import SearchForm, FilterForm
 
 def index(request):
     if request.method == 'POST':
-        # TO-DO: implement this with django forms to sanitize input data
-        # search_string = request.POST.get('search')
+
         search_form = SearchForm(request.POST)
 
         if search_form.is_valid():
@@ -40,9 +41,34 @@ def profileView(request):
     return HttpResponse('Profile page will be here')
 
 
-class SearchView(ListView):
-    model = Lodging
+# class SearchView(TemplateView):
+#     # model = Lodging
+#     template_name = 'home/search.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # add extra context here
+#         if 'place' in self.request.session:
+#             place = Destination.objects.get(name=self.request.session['place'])
+#             context['place_name'] = place.name
+#             context['place_description'] = place.description
+#             context['filter_form'] = FilterForm()
+
+#         return context
+
+#     def post(self, request, *args, **kwargs):
+#         context = self.get_context_data(**kwargs)
+#         filter_form = FilterForm(request.POST)
+#         if filter_form.is_valid():
+#             return HttpResponseRedirect(reverse('selectionpage'))
+
+#         return super(TemplateView, self).render_to_response(context)
+
+
+class SearchView(FormView):
+    form_class = FilterForm
     template_name = 'home/search.html'
+    success_url = '/selection'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,5 +78,20 @@ class SearchView(ListView):
             context['place_name'] = place.name
             context['place_description'] = place.description
             context['filter_form'] = FilterForm()
+
+        return context
+
+    def form_valid(self, form):
+        # do something
+        return super().form_valid(form)
+
+
+class SelectionView(ListView):
+    model = Room
+    template_name = 'home/selection.html'
+    context_object_name = 'rooms'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         return context
