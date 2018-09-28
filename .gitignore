@@ -103,3 +103,4 @@ staticfiles/fonts/
 
 #django superuser details
 admin superuser.txt
+backend logic.txt

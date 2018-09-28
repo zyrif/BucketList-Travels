@@ -15,11 +15,10 @@ def loginView(request):
         if form.is_valid():
             # Forms asks for email, not username.
             # We need username, so we improvise a little.
+            # More like a hack actually, so there's room for improvement.
             email = str(form.cleaned_data['email'])
-            e1 = email.split("@")[0]
-            e3 = email.split("@")[1]
-            e2 = e3.split(".")[0]
-            username = e1 + '-' + e2
+            name_part = str(email.split(".")[0]).split("@")
+            username = name_part[0] + '-' + name_part[1]
             password = form.cleaned_data['password']
 
             user = authenticate(username=username, password=password)
@@ -48,10 +47,8 @@ def signupView(request):
             user = userform.save(commit=False)
             # we need a username, form asks for none
             email = str(userform.cleaned_data['email'])
-            e1 = email.split("@")[0]
-            e3 = email.split("@")[1]
-            e2 = e3.split(".")[0]
-            username = e1 + '-' + e2
+            name_part = str(email.split(".")[0]).split("@")
+            username = name_part[0] + '-' + name_part[1]
             password = userform.cleaned_data['password']
 
             try:
