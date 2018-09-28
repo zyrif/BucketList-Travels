@@ -8,12 +8,14 @@
     <title>Home - BucketList Travels</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/home.css' %}" />
+    {% block style %} {% endblock %}
+
 
 </head>
 
 <body>
     <div>
-        <img src="{% static 'images/logo.png' %}" style="width:auto;height: auto;" alt="Bucket List Travel Logo.">
+        <a href="/"><img src="{% static 'images/logo.png' %}" style="width:auto;height: auto;" alt="Bucket List Travel Logo."></a>
 
         <ul>
             <li><a href="{% url 'homepage' %}">Home</a></li>
