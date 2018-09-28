@@ -1,0 +1,17 @@
+{% extends 'home/base.html' %}
+
+
+{% block content %}
+<h1> {{ place_name }} </h1>
+<div class="container" id="description">
+    <p> {{ place_description }} </p>
+</div>
+
+<div class="container" id="filter">
+    <form method="post">
+        {% csrf_token %}
+        {{ filter_form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+</div>
+{% endblock content %}

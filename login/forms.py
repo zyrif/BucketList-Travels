@@ -41,8 +41,9 @@ class SignupForm(forms.ModelForm):
 
 
 class UserInfoForm(forms.ModelForm):
-    contactno = forms.CharField(label='', widget=forms.TextInput(
-        attrs={'placeholder': 'Phone Number'}))
+    contactno = forms.CharField(
+        label='', min_length=11, max_length=16, widget=forms.TextInput(
+            attrs={'placeholder': 'Phone Number'}))
 
     class Meta:
         model = UserInfo

@@ -1,10 +1,12 @@
 {% extends 'home/base.html' %}
 
-{% block search %}
+{% block content %}
 
 <div class="srcbar">
     <form method="POST">
-        <input type="text" name="search" placeholder="Search...">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <input type="text" name="search" placeholder="Search..."> -->
         <button type="submit">
             <b>GO!</b>
         </button>

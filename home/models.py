@@ -17,7 +17,7 @@ class Lodging(models.Model):
     description = models.TextField(blank=True)
     background = models.ImageField(upload_to='background_images')
     address = models.CharField(max_length=128, unique=False, blank=False)
-    contactno = models.CharField(max_length=14)
+    contactno = models.CharField(max_length=20)
     website = models.URLField(blank=True)
     place = models.ForeignKey(
         Destination, on_delete=models.PROTECT, related_name='lodgings')
@@ -37,7 +37,7 @@ class Room(models.Model):
         Lodging, on_delete=models.PROTECT, related_name='rooms')
 
     def __str__(self):
-        return str(self.name)
+        return str(self.id)
 
 
 # class Package(models.Model):
