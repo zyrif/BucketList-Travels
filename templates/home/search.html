@@ -93,8 +93,8 @@
         width: 100%;
         box-sizing: border-box;
         padding: 10px 50px 10px 50px;
-        margin-left: 50%;
-        transform: translate(-50%);
+        /* margin-left: 50%; */
+        /* transform: translate(-50%); */
         border: 0px solid black;
         border-radius: 4px;
         font-size: 20px;
@@ -102,7 +102,7 @@
         margin-top: 10px;
         font-size: 20px;
      
-        color: white;
+        /* color: white; */
 
     }
 #searchButton{
@@ -128,7 +128,7 @@
 <div class="container" id="description">
     <h1> {{ place_name }} </h1>
     <hr>
-  
+
     <h3> {{ place_description }} </h3>
 
 
@@ -136,12 +136,12 @@
 </div>
 
 <div class="container" id="filter">
-    
+
     <form method="post">
-            <h2 id="filterIns">দেখেন সিটটিট ফাঁকা আছে নাকিঃ  </h2>
+        <h2 id="filterIns">দেখেন সিটটিট ফাঁকা আছে নাকিঃ </h2>
         <hr>
-            {% csrf_token %}
-            {{ filter_form.as_p }}
+        {% csrf_token %}
+        {{ filter_form.as_p }}
         <input id="searchButton" class="filterfield" type="submit" value="Search">
     </form>
 
