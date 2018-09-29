@@ -40,4 +40,7 @@ class Room(models.Model):
         return str(self.id)
 
 
+# class Booking(models.Model):
+
+
 # class Package(models.Model):

@@ -86,7 +86,10 @@ class SearchView(FormView):
         return context
 
     def form_valid(self, form):
-        # do something
+        self.request.session['start_date'] = str(
+            form.cleaned_data['start_date'])
+        self.request.session['end_date'] = str(form.cleaned_data['end_date'])
+        self.request.session['capacity'] = str(form.cleaned_data['capacity'])
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -107,8 +110,19 @@ class SelectionView(ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        # return HttpResponseRedirect(reverse('bookingpage'))
         room_id = request.POST.get('room_id')
         request.session['room_id'] = room_id
-        return HttpResponse(
-            'Booking page will be here. Room ID: {}'.format(room_id))
+        return HttpResponseRedirect(reverse('bookingpage'))
+        # return HttpResponse(
+        # 'Booking page will be here. Room ID: {}'.format(room_id))
+
+
+class BookingView(TemplateView):
+    template_name = 'home/booking.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_keys'] = [key for key in self.request.session.keys()]
+        context['session_data'] = [self.request.session[key]
+                                   for key in self.request.session.keys()]
+        return context

@@ -1,0 +1,25 @@
+{% extends 'home/base.html' %}
+
+
+{% block style %}
+
+{% endblock style %}
+
+
+
+{% block content %}
+<!-- Right now it's printing the session content,
+     which will be used to create this page's content -->
+{% for key in session_keys %}
+{{ key }}
+{% empty %}
+<p> No session keys available </p>
+{% endfor %}
+<p></p>
+{% for data in session_data %}
+{{ data }}
+{% empty %}
+<p> No session data available </p>
+{% endfor %}
+
+{% endblock content %}
