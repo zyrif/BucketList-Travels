@@ -1,22 +1,106 @@
 {% extends 'home/base.html' %}
 
 
+
+
+
+{% block style %} 
+
+<style>
+
+
+p{
+    margin: auto;
+
+    
+}
+
+.bookbuttons{
+        display: block;
+        float: left;
+
+        font-size: 20px;
+		padding: 10px 20px 10px 20px;
+
+		border: 1px solid #00a26f;
+
+		color: white;
+		
+        width: 100%;
+        margin-top: 20px;
+     
+
+
+	}
+
+
+#booknow{
+    background-color:#00a26f;
+   
+}
+
+#details{
+
+    box-sizing: border-box;
+
+    background-color: rgba(255, 255, 255, .5);
+    border:4px solid white;
+    color: black;
+  
+
+}
+
+
+.thumbnail{
+    margin-left: 50%;
+    transform: translate(-50%);
+    border: 4px solid white;
+
+}
+
+.thumbnaildetails{
+    margin-top: 20px;
+    text-align: left;
+    margin-left: 20%;
+    font-size: 15pt;
+    
+}
+
+
+.thumbnailtitle{
+    color: black;
+    text-align: center;
+    font-size: 30pt;
+    margin-top: 20  px;
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+
 {% block content %}
 <div class="grid-container">
     {% for room in rooms %}
     <div class="grid-item">
         <div class="img-container">
-            <img src="/media/{{ room.image }}" alt="Image" width="360" height="240">
+            <img class="thumbnail" src="/media/{{ room.image }}" alt="Image" width="360" height="240">
         </div>
-        <p> {{ room.name }} </p>
-        <p> {{ room.host.name }}</p>
-        <p> {{ room.size }} sq-ft </p>
-        <p> {{ room.capacity }} person</p>
-        <p> {{ room.price }} per night </p>
-        <span>
-            <button> Details </button>
-            <button type="submit"> Book </button>
-        </span>
+        <h1 class="thumbnailtitle"> {{ room.name }} </h1>
+        <hr>
+        <div class="thumbnaildetails">
+            <p>&#9830 {{ room.host.name }}</p>
+            <p>&#9830 {{ room.size }} sq-ft </p>
+            <p>&#9830 {{ room.capacity }} person</p>
+            <p> &#9830 {{ room.price }} per night </p>
+        </div>
+        <div>
+            <button id="details" class="bookbuttons"> Details </button>
+            <button id="booknow" class="bookbuttons" type="submit"> Book </button>
+        </div>
     </div>
     {% empty %}
     <h3> Sorry, system couldn't find any result matching the search criteria </h3>

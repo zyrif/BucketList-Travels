@@ -82,16 +82,28 @@ body{background-image:url('../images/bg.jpg');
 	}
 
 	.grid-container {
+		box-sizing: border-box;
 		display: grid;
-		grid-template-columns: 480px 480px 480px;
+		grid-template-columns: auto auto auto auto ;
+		grid-gap: 50px;
 		background-color: rgba(255, 255, 255, 0.2);
-		padding: 20px;
+
+		margin: 50px;
+
 	  }
 	  .grid-item {
 		background-color: rgba(255, 255, 255, 0.4);
-		margin: 20px;
 		border: 3px solid rgba(0, 255, 150, 0.3);
+		
+		box-sizing: border-box;
 		padding: 20px;
-		font-size: 30px;
-		text-align: center;
+
+		
+		
 	  }
+
+
+	  .grid-item:hover{
+		box-shadow: 0px 0px 15px 0px black;
+		
+	}
