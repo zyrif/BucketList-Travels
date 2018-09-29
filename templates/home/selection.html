@@ -4,12 +4,12 @@
 
 
 
-{% block style %} 
+{% block style %}
 
 <style>
 
 
-p{
+    p{
     margin: auto;
 
     
@@ -98,8 +98,12 @@ p{
             <p> &#9830 {{ room.price }} per night </p>
         </div>
         <div>
-            <button id="details" class="bookbuttons"> Details </button>
-            <button id="booknow" class="bookbuttons" type="submit"> Book </button>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="room_id" value="{{ room.id }}">
+                <button id="details" class="bookbuttons"> Details </button>
+                <button id="booknow" class="bookbuttons" type="submit"> Book </button>
+            </form>
         </div>
     </div>
     {% empty %}

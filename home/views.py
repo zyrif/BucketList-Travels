@@ -49,7 +49,7 @@ def profileView(request):
 #         context = super().get_context_data(**kwargs)
 #         # add extra context here
 #         if 'place' in self.request.session:
-#             place = Destination.objects.get(name=self.request.session['place'])
+#             place = Destination.objects.get(name=self.request.session['place']) # noqa: E501
 #             context['place_name'] = place.name
 #             context['place_description'] = place.description
 #             context['filter_form'] = FilterForm()
@@ -65,6 +65,9 @@ def profileView(request):
 #         return super(TemplateView, self).render_to_response(context)
 
 
+# add custom decorator to access the page.
+# If place name is not set in session, redirect to home page.
+# IF SESSION VARIABLE NAMES ARE CHANGED, UPDATE DECORATORS ACCORDINGLY!
 class SearchView(FormView):
     form_class = FilterForm
     template_name = 'home/search.html'
@@ -77,6 +80,7 @@ class SearchView(FormView):
             place = Destination.objects.get(name=self.request.session['place'])
             context['place_name'] = place.name
             context['place_description'] = place.description
+            context['place_background'] = place.background
             context['filter_form'] = FilterForm()
 
         return context
@@ -85,7 +89,13 @@ class SearchView(FormView):
         # do something
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
+
+# add custom decorator to access the page.
+# If filter details are not set in session, redirect to search page.
+# IF SESSION VARIABLE NAMES ARE CHANGED, UPDATE DECORATORS ACCORDINGLY!
 class SelectionView(ListView):
     model = Room
     template_name = 'home/selection.html'
@@ -95,3 +105,10 @@ class SelectionView(ListView):
         context = super().get_context_data(**kwargs)
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        # return HttpResponseRedirect(reverse('bookingpage'))
+        room_id = request.POST.get('room_id')
+        request.session['room_id'] = room_id
+        return HttpResponse(
+            'Booking page will be here. Room ID: {}'.format(room_id))

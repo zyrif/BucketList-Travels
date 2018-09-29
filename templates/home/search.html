@@ -12,7 +12,7 @@
             rgba(0, 0, 0, 0.7), 
             rgba(0, 0, 0, 0.3)
             ),
-            url(static/images/coxs.jpg);
+            url(media/{{place_background}});
             background-attachment: fixed;
         }
 
@@ -156,14 +156,15 @@
         <h2 id="filterIns">দেখেন সিটটিট ফাঁকা আছে নাকিঃ </h2>
         <hr>
         {% csrf_token %}
-        {{ filter_form.as_p }}
+        <!-- {{ filter_form.as_p }} -->
 
-        <!-- {% for field in filter_form %}
+        {% for field in filter_form %}
         <div class="fieldWrapper">
             {{ field.error }}
             {{ field }}
+            <!-- add datepicker here -->
         </div>
-        {% endfor %} -->
+        {% endfor %}
 
         <input id="searchButton" class="filterfield" type="submit" value="Search">
     </form>
