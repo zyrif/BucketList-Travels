@@ -10,16 +10,39 @@
 {% block content %}
 <!-- Right now it's printing the session content,
      which will be used to create this page's content -->
-{% for key in session_keys %}
-{{ key }}
-{% empty %}
-<p> No session keys available </p>
-{% endfor %}
-<p></p>
-{% for data in session_data %}
-{{ data }}
-{% empty %}
-<p> No session data available </p>
-{% endfor %}
+<div class="temp">
+    {% for key in session_keys %}
+    {{ key }}
+    {% empty %}
+    <p> No session keys available </p>
+    {% endfor %}
+    <p></p>
+    {% for data in session_data %}
+    {{ data }}
+    {% empty %}
+    <p> No session data available </p>
+    {% endfor %}
+</div>
 
-{% endblock content %}
+<div class="container">
+    <div>
+        <legend>Booking Details: </legend>
+        <div>
+            <legend>Room Details: </legend>
+        </div>
+        <div>
+            <legend>Services: </legend>
+        </div>
+    </div>
+
+    <div>
+        <legend>Your Information </legend>
+    </div>
+
+    <div>
+        <legend>Cost Calculatin: </legend>
+    </div>
+    <div>
+        <legend>Payment </legend>
+    </div>
+</div>
