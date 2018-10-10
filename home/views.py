@@ -1,10 +1,12 @@
 from django.shortcuts import render, reverse, render_to_response
 from django.shortcuts import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
 from .models import Destination, Lodging, Room
 from .forms import SearchForm, FilterForm
+import math
 
 # Create your views here.
 
@@ -89,7 +91,9 @@ class SearchView(FormView):
         self.request.session['start_date'] = str(
             form.cleaned_data['start_date'])
         self.request.session['end_date'] = str(form.cleaned_data['end_date'])
-        self.request.session['capacity'] = str(form.cleaned_data['capacity'])
+        self.request.session['people'] = str(form.cleaned_data['capacity'])
+        self.request.session['stay_days'] = str(
+            form.cleaned_data['end_date'].day - form.cleaned_data['start_date'].day)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -117,12 +121,34 @@ class SelectionView(ListView):
         # 'Booking page will be here. Room ID: {}'.format(room_id))
 
 
-class BookingView(TemplateView):
+class BookingView(LoginRequiredMixin, TemplateView):
     template_name = 'home/booking.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['session_keys'] = [key for key in self.request.session.keys()]
-        context['session_data'] = [self.request.session[key]
-                                   for key in self.request.session.keys()]
+
+        context['user'] = self.request.user
+        room_obj = Room.objects.get(
+            id=int(self.request.session.get('room_id')))
+
+        context['room'] = room_obj
+
+        room_price = room_obj.price
+        room_required = (math.ceil(int(self.request.session.get('people')
+                                       ) / int(room_obj.capacity)))
+
+        room_cost = (int(room_price) * int(room_required) *
+                     int(self.request.session.get('stay_days')))
+
+        context['stay_days'] = self.request.session.get('stay_days')
+        context['room_price'] = room_price
+        context['room_required'] = room_required
+        context['room_cost'] = room_cost
+
+        context['start_date'] = self.request.session.get('start_date')
+        context['end_date'] = self.request.session.get('end_date')
+
+        # context['session_keys'] = [key for key in self.request.session.keys()]
+        # context['session_data'] = [self.request.session[key]
+        #                            for key in self.request.session.keys()]
         return context

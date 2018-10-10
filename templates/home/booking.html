@@ -10,7 +10,7 @@
 {% block content %}
 <!-- Right now it's printing the session content,
      which will be used to create this page's content -->
-<div class="temp">
+<!-- <div class="temp">
     {% for key in session_keys %}
     {{ key }}
     {% empty %}
@@ -22,28 +22,40 @@
     {% empty %}
     <p> No session data available </p>
     {% endfor %}
-</div>
+</div> -->
 
 <div class="container">
     <div>
-        <legend>Booking Details: </legend>
+        <h1>Booking Details: </h1>
         <div>
-            <legend>Room Details: </legend>
+            <h2>Room Details: </h2>
+            <p> {{room.name}} </p>
+            <p> {{room.host.name}} </p>
+            <p> Capacity: {{room.capacity}} </p>
+            <p> Arrival Date: {{start_date}} </p>
+            <p> Departure Date: {{end_date}} </p>
         </div>
         <div>
-            <legend>Services: </legend>
+            <h2>Services: </h2>
         </div>
     </div>
 
     <div>
-        <legend>Your Information </legend>
+        <h2>Your Information </h2>
+        <p>{{user.first_name}} {{user.last_name}}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.userinfo.contactno }}</p>
     </div>
 
     <div>
-        <legend>Cost Calculatin: </legend>
+        <h2>Cost Calculation: </h2>
+        <p>Price: {{ room_price }} BDT per night </p>
+        <p>Number of Days to Stay: {{ stay_days }} </p>
+        <p>Number of Rooms Required: {{ room_required }} </p>
+        <h3>Total: {{ room_cost }} BDT</h3>
     </div>
     <div>
-        <legend>Payment </legend>
+        <h2>Payment </h2>
     </div>
 </div>
 
