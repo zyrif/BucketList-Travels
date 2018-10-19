@@ -5,7 +5,7 @@ The original TMS was a trainwreck. Hopefully this will be something better.
 
 # Screenshots
 
-![homepage](./screenshots/bucketlist home.PNG)
+![homepage](https://github.com/zyrif/BucketList-Travels/blob/master/screenshots/bucketlist%20home.PNG)
 
-![Search](./screenshots/bucketlist 2.PNG)
+![Search](https://github.com/zyrif/BucketList-Travels/blob/master/screenshots/bucketlist%202.PNG)
       
