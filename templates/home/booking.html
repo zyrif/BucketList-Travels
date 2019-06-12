@@ -5,12 +5,15 @@
 
 <style>
     body {
-background-color: #3f3f3f;
-}
- p, h1, h2, h3 {
-     color: white;
- }
+        background-color: #3f3f3f;
+    }
 
+    p,
+    h1,
+    h2,
+    h3 {
+        color: white;
+    }
 </style>
 
 {% endblock style %}
@@ -44,8 +47,8 @@ background-color: #3f3f3f;
                 <p> {{room.name}} </p>
                 <p> {{room.host.name}} </p>
                 <p> Capacity: {{room.capacity}} </p>
-                <p> Arrival Date: {{start_date}} </p>
-                <p> Departure Date: {{end_date}} </p>
+                <p> Arrival Date: <span id="startdate"> {{start_date}} </span></p>
+                <p> Departure Date: <span id="enddate"> {{end_date}} </span> </p>
             </div>
             <div>
                 <h2>Services: </h2>
@@ -70,9 +73,50 @@ background-color: #3f3f3f;
             <h2>Payment </h2>
         </div>
         <div>
-            <input type="submit" value="Confirm Booking">
+            <button type="button" value="Confirm Booking" class="btn" id="process_booking_btn">
         </div>
     </form>
 </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    var processBooking = function () {
+        var data = {
+            roomid: {{room.id}},
+            startdate: new Date($("#startdate").text()),
+            enddate: new Date($("#enddate").text()),
+            no_of_people: {{ people_no }},
+            no_of_rooms: {{ room_required }}
+        }
+        
+        $.ajax({
+            url: "ajax/processbooking",
+            data: JSON.stringify(data),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            success: function(data) {
+                alert("Success!");
+            },
+            error: function(jqxhr, status, error) {
+                alert("Error!");
+                console.log("status: " + status);
+                console.log("error: " + error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#process_booking_btn").click(function(){
+            processBooking();
+        });
+
+
+    });
+</script>
+
 
 {% endblock %}

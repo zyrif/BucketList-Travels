@@ -1,12 +1,17 @@
 from django.shortcuts import render, reverse, render_to_response
 from django.shortcuts import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
 from .models import Destination, Lodging, Room, Booking
+from login.models import User, UserInfo
 from .forms import SearchForm, FilterForm
+from datetime import datetime
 import math
+import json
 
 # Create your views here.
 
@@ -43,10 +48,24 @@ def profileView(request):
     return HttpResponse('Profile page will be here')
 
 
-@login_required
+@csrf_exempt
 def ProcessBooking(request):
-    pass
+    data = json.loads(request.body)
+    user = request.user
+    room = Room.objects.get(pk=data["roomid"])
+    startdate = datetime.strptime(data["startdate"], "%Y-%m-%dT%H:%M:%S.%fZ")
+    enddate = datetime.strptime(data["enddate"], "%Y-%m-%dT%H:%M:%S.%fZ")
+    no_of_people = int(data["no_of_people"])
+    no_of_rooms = int(data["no_of_rooms"])
+    booking_req = Booking(startdate=startdate, enddate=enddate, no_of_people=no_of_people, no_of_rooms=no_of_rooms,
+    room=room, user=user)    
+    booking_req.save()
+    for key in data:
+        print("key: "+ key)
+        print("value: " + str(data[key]))
 
+    data = True
+    return JsonResponse({'result': data})
 # class SearchView(TemplateView):
 #     # model = Lodging
 #     template_name = 'home/search.html'
@@ -138,6 +157,7 @@ class BookingView(LoginRequiredMixin, TemplateView):
             id=int(self.request.session.get('room_id')))
 
         context['room'] = room_obj
+        context['people_no'] = self.request.session.get('people')
 
         room_price = room_obj.price
         room_required = (math.ceil(int(self.request.session.get('people')
