@@ -1,5 +1,5 @@
 from django.db import models
-
+from login.models import UserInfo
 # Create your models here.
 
 
@@ -40,7 +40,17 @@ class Room(models.Model):
         return str(self.id)
 
 
-# class Booking(models.Model):
+class Booking(models.Model):
+    startdate = models.DateField()
+    enddate = models.DateField()
+    no_of_people = models.IntegerField(null=False)
+    no_of_rooms = models.IntegerField(null=False)
+    room = models.ForeignKey(
+        Room, on_delete=models.PROTECT, related_name='bookings')
+    user = models.ForeignKey(
+        UserInfo, on_delete=models.CASCADE, related_name='reservation_holder')
 
+    def __str__(self):
+        return str(self.id)
 
 # class Package(models.Model):

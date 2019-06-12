@@ -3,6 +3,16 @@
 
 {% block style %}
 
+<style>
+    body {
+background-color: #3f3f3f;
+}
+ p, h1, h2, h3 {
+     color: white;
+ }
+
+</style>
+
 {% endblock style %}
 
 
@@ -24,7 +34,7 @@
     {% endfor %}
 </div> -->
 
-<div class="container">
+<div class="container container-fluid">
     <form method="POST">
         {% csrf_token %}
         <div>

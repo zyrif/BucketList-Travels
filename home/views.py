@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
-from .models import Destination, Lodging, Room
+from .models import Destination, Lodging, Room, Booking
 from .forms import SearchForm, FilterForm
 import math
 
@@ -42,6 +42,10 @@ def index(request):
 def profileView(request):
     return HttpResponse('Profile page will be here')
 
+
+@login_required
+def ProcessBooking(request):
+    pass
 
 # class SearchView(TemplateView):
 #     # model = Lodging
@@ -128,6 +132,8 @@ class BookingView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['user'] = self.request.user
+        context['no_of_people'] = self.request.session.get('people')
+
         room_obj = Room.objects.get(
             id=int(self.request.session.get('room_id')))
 
