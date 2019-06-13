@@ -38,6 +38,10 @@ class Room(models.Model):
 
     def __str__(self):
         return str(self.id)
+        # return "%s (%s)" % (
+        #     str(self.id),
+        #     ", ".join(str(booking.id) for booking in self.bookings.all()),
+        # )
 
 
 class Booking(models.Model):
@@ -45,6 +49,7 @@ class Booking(models.Model):
     enddate = models.DateField(null=False)
     no_of_people = models.IntegerField(null=False)
     no_of_rooms = models.IntegerField(null=False)
+    total_cost = models.DecimalField(max_digits=12, decimal_places=2, blank=False)
     room = models.ForeignKey(
         Room, on_delete=models.PROTECT, related_name='bookings', null=False)
     user = models.ForeignKey(

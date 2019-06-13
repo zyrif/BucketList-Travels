@@ -89,7 +89,8 @@
             startdate: new Date($("#startdate").text()),
             enddate: new Date($("#enddate").text()),
             no_of_people: {{ people_no }},
-            no_of_rooms: {{ room_required }}
+            no_of_rooms: {{ room_required }},
+            total_cost: {{ room_cost }}
         }
         
         $.ajax({
@@ -102,9 +103,7 @@
                 alert("Success!");
             },
             error: function(jqxhr, status, error) {
-                alert("Error!");
-                console.log("status: " + status);
-                console.log("error: " + error);
+                alert(status + ": " + error);
             }
         });
     }

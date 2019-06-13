@@ -3,6 +3,9 @@
 
 
 {% block style %}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+
 <style>
 
 
@@ -153,7 +156,7 @@
     {% endif %}
 
     <form method="post">
-        <h2 id="filterIns">দেখেন সিটটিট ফাঁকা আছে নাকিঃ </h2>
+        <h2 id="filterIns">Enter Booking Details </h2>
         <hr>
         {% csrf_token %}
         <!-- {{ filter_form.as_p }} -->
@@ -173,3 +176,25 @@
 
 </div>
 {% endblock content %}
+
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
+
+<script>
+
+
+$(document).ready(function(){
+    
+    var startdatePicker = new Pikaday({ field: $('#id_start_date')[0], minDate: new Date() });
+
+    var enddatePicker = new Pikaday({ field: $('#id_end_date')[0], minDate: new Date() });
+
+    startdatePicker.toString('YYYY-MM-DD')
+    enddatePicker.toString('YYYY-MM-DD')
+
+});
+</script>
+
+
+{% endblock %}

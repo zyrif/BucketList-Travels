@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView
 from .models import Destination, Lodging, Room, Booking
 from login.models import User, UserInfo
 from .forms import SearchForm, FilterForm
-from datetime import datetime
+import datetime
 import math
 import json
 
@@ -53,12 +53,13 @@ def ProcessBooking(request):
     data = json.loads(request.body)
     user = request.user
     room = Room.objects.get(pk=data["roomid"])
-    startdate = datetime.strptime(data["startdate"], "%Y-%m-%dT%H:%M:%S.%fZ")
-    enddate = datetime.strptime(data["enddate"], "%Y-%m-%dT%H:%M:%S.%fZ")
+    startdate = datetime.datetime.strptime(data["startdate"], "%Y-%m-%dT%H:%M:%S.%fZ")
+    enddate = datetime.datetime.strptime(data["enddate"], "%Y-%m-%dT%H:%M:%S.%fZ")
     no_of_people = int(data["no_of_people"])
     no_of_rooms = int(data["no_of_rooms"])
-    booking_req = Booking(startdate=startdate, enddate=enddate, no_of_people=no_of_people, no_of_rooms=no_of_rooms,
-    room=room, user=user)    
+    total_cost = float(data["total_cost"])
+    booking_req = Booking(startdate=startdate, enddate=enddate, total_cost=total_cost,
+    no_of_people=no_of_people, no_of_rooms=no_of_rooms, room=room, user=user)    
     booking_req.save()
     for key in data:
         print("key: "+ key)
@@ -128,8 +129,38 @@ class SearchView(FormView):
 # IF SESSION VARIABLE NAMES ARE CHANGED, UPDATE DECORATORS ACCORDINGLY!
 class SelectionView(ListView):
     model = Room
+    # queryset = Room.objects.exclude(bookings__startdate__gte=datetime.date(2018, 1, 2), bookings__enddate__lte=datetime.date(2018, 1, 4))
     template_name = 'home/selection.html'
     context_object_name = 'rooms'
+
+    
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            startdate = self.request.session['start_date']
+            enddate = self.request.session['end_date']
+        except KeyError:
+            return HttpResponseRedirect(reverse('searchpage'))
+
+        startdate = datetime.datetime.strptime(self.request.session['start_date'], '%Y-%m-%d').date() 
+        enddate = datetime.datetime.strptime(self.request.session['end_date'], '%Y-%m-%d').date()
+
+        if startdate > enddate:
+            return HttpResponseRedirect(reverse('searchpage'))
+        
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = self.model.objects.all().prefetch_related('bookings')
+
+        startdate = datetime.datetime.strptime(self.request.session['start_date'], '%Y-%m-%d').date() 
+        enddate = datetime.datetime.strptime(self.request.session['end_date'], '%Y-%m-%d').date()
+
+        for booking in Booking.objects.all():
+            # check if both dates are inside any bookings. If a matching booking is found for any room, exclude that room
+            if (startdate >= booking.startdate and startdate <= booking.enddate) or (enddate >= booking.startdate and enddate <=booking.enddate):
+                queryset = queryset.exclude(bookings__id=booking.id)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
