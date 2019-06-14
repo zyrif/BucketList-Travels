@@ -1,11 +1,7 @@
-body{background-image:url('../images/bg.jpg');
-	background-color: #747474;}
+
 	img{
 		margin-top: 20px;
 		margin-left: 20px;
-		
-		
-
 	}
 	ul{
 		list-style-type: none;
@@ -29,6 +25,11 @@ body{background-image:url('../images/bg.jpg');
 	}
 	li a:hover{
 		border-bottom: 3px solid #ccffff
+	}
+
+	a:hover {
+		color: white;
+		text-decoration: none;
 	}
 
 	.srcbar{
@@ -83,23 +84,22 @@ body{background-image:url('../images/bg.jpg');
 
 	.grid-container {
 		box-sizing: border-box;
-		display: grid;
+		/* display: grid; */
 		grid-template-columns: auto auto auto auto ;
 		grid-gap: 50px;
-		background-color: rgba(255, 255, 255, 0.2);
+		/* background-color: rgba(255, 255, 255, 0.2); */
 
 		margin: 50px;
 
 	  }
 	  .grid-item {
-		background-color: rgba(255, 255, 255, 0.4);
+		background-color: rgba(49, 50, 51, 0.4);;
 		border: 3px solid rgba(0, 255, 150, 0.3);
-		
 		box-sizing: border-box;
-		padding: 20px;
-
-		
-		
+		min-width: 420px;
+		max-width: 420px;
+		padding-bottom: 25px;
+		margin: 20px 0px 145px 20px;
 	  }
 
 

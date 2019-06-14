@@ -9,10 +9,10 @@ class SearchForm(forms.Form):
 
 class FilterForm(forms.Form):
     start_date = forms.DateField(widget=forms.DateInput(
-        attrs={'placeholder': 'Arrival Date', 'class': 'filterfield'}),
+        attrs={'placeholder': 'Arrival Date', 'class': 'filterfield', 'autocomplete': 'off'}),
         label='')
     end_date = forms.DateField(widget=forms.DateInput(
-        attrs={'placeholder': 'Departure Date', 'class': 'filterfield'}),
+        attrs={'placeholder': 'Departure Date', 'class': 'filterfield', 'autocomplete': 'off'}),
         label='')
     capacity = forms.IntegerField(widget=forms.NumberInput(
-        attrs={'placeholder': 'Person(s)', 'class': 'filterfield'}), label='')
+        attrs={'placeholder': 'Person(s)', 'class': 'filterfield', 'autocomplete': 'off'}), label='')
