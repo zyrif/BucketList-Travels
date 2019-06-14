@@ -1,7 +1,6 @@
 # BucketList-Travels
 Rewrite of TMS using Django web framework
 
-The original TMS was a trainwreck. Hopefully this will be something better.
 
 # Screenshots
 
