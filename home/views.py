@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse, render_to_response
 from django.shortcuts import HttpResponse, HttpResponseRedirect
-from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
+from django.http import JsonResponse
+from django.core import serializers
 from .models import Destination, Lodging, Room, Booking
 from login.models import User, UserInfo
 from .forms import SearchForm, FilterForm
@@ -67,6 +68,19 @@ def ProcessBooking(request):
 
     data = True
     return JsonResponse({'result': data})
+
+
+@csrf_exempt
+def GetDestinations(request):
+    destinations = Destination.objects.all()
+
+    location_object = []
+
+    for dest in destinations:
+        location_object.append(dict([("name", dest.name)]))
+
+
+    return JsonResponse(location_object, safe=False)
 # class SearchView(TemplateView):
 #     # model = Lodging
 #     template_name = 'home/search.html'

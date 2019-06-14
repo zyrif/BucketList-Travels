@@ -12,6 +12,7 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/home.css' %}" />
     {% block style %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.min.css">
     <style>
         body {
             background-image: url("{% static 'images/bg.jpg' %}");
@@ -62,6 +63,73 @@
 
 
     {% block scripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
+
+
+    <script>
+    
+    // var list = null;
+
+    var eaccode = function() {
+        var options = {
+        url: function(phrase) {
+            return "ajax/getdestinations"
+        },
+
+        getValue: function(element){
+            return element.name
+        },
+
+        ajaxSettings: {
+            dataType: "json",
+            method: "POST",
+            data: {
+                dataType: "json"
+            }
+        },
+
+        preparePostData: function(data) {
+            data.phrase = $("#id_search").val();
+            return data;
+        },
+
+        requestDelay: 400,
+
+        list: {
+            match: {
+                enabled: true
+                }
+            }
+        };
+
+        $("#id_search").easyAutocomplete(options);
+
+    };
+
+    var populateList = function() {
+        // $.ajax({
+        //     url: 'ajax/getdestinations',
+        //     type: "POST",
+        //     contentType: "application/json; charset=utf-8",
+        //     cache: false,
+        //     success: function(data) {
+        //         list = data;
+        //         eaccode();
+        //     },
+        //     error: function(jqxhr, status, error) {
+        //         alert(status + ": " + error);
+        //     }
+        // });
+        eaccode();
+    }
+
+    $(document).ready(function(){
+        populateList();
+    });
+
+    </script>
+
     {% endblock %}
 </body>
 
